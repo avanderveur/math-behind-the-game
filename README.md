@@ -12,7 +12,7 @@ The project connects baseball strategy with differential calculus by showing tha
 
 Add your GitHub Pages link here after publishing:
 
-https://avanderveur.github.io/calculus-baseball-intelligence-system/
+https://avanderveur.github.io/math-behind-the-game/
 
 ## Project Purpose
 
