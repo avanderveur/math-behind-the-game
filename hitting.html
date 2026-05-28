@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Hitting Lab | The Math Behind the Game</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">◆</span>
+        Math Behind the Game
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="calculus.html">Calculus Engine</a>
+        <a href="pitching.html">Pitching Lab</a>
+        <a href="hitting.html">Hitting Lab</a>
+        <a href="analytics.html">Analytics</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero hitting-hero">
+      <div class="page-hero-content">
+        <p class="tagline">Lab 03 | Batter vs Pitcher Simulation</p>
+
+        <h1>Hitting Lab</h1>
+
+        <p>
+          This lab simulates what happens after contact. Pitcher hand, batter hand,
+          pitch type, pitch location, swing timing, contact quality, exit velocity,
+          and launch angle all change the spray chart.
+        </p>
+      </div>
+    </section>
+
+    <section class="engine-section hitting-optimizer-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Statcast Spray Chart Simulator</p>
+
+        <h2>Simulate the Matchup Behind the Contact</h2>
+
+        <p>
+          Contact changes depending on who is pitching, who is hitting, what pitch is thrown,
+          where it is located, and how the swing is timed. This lab turns those inputs into
+          a spray-chart result.
+        </p>
+      </div>
+
+      <div class="hitting-optimizer-grid spray-hitting-grid">
+        <aside class="engine-control-panel hitting-control-panel">
+          <div class="console-topbar">
+            <div>
+              <span class="live-dot"></span>
+              <p>Contact Builder</p>
+            </div>
+            <span>Input Feed</span>
+          </div>
+
+          <div class="hit-status-card">
+            <span>Current Contact Profile</span>
+            <h3 id="hitContactProfileOutput">Loading</h3>
+            <p id="hitSimulationSummary">
+              Choose pitcher hand, batter hand, pitch type, pitch location, timing,
+              and contact quality to simulate where the ball goes.
+            </p>
+          </div>
+
+          <div class="hit-simulation-card compact-matchup-card">
+            <div class="mini-card-header">
+              <span>Pitcher Hand</span>
+              <strong id="hitPitcherHandOutput">RHP</strong>
+            </div>
+
+            <div class="hit-choice-grid two-choice-grid">
+              <button class="hit-sim-btn active" data-hit-pitcher-hand="right">RHP</button>
+              <button class="hit-sim-btn" data-hit-pitcher-hand="left">LHP</button>
+            </div>
+          </div>
+
+          <div class="hit-simulation-card compact-matchup-card">
+            <div class="mini-card-header">
+              <span>Batter Hand</span>
+              <strong id="hitBatterHandOutput">RHB</strong>
+            </div>
+
+            <div class="hit-choice-grid two-choice-grid">
+              <button class="hit-sim-btn active" data-hit-hand="right">RHB</button>
+              <button class="hit-sim-btn" data-hit-hand="left">LHB</button>
+            </div>
+          </div>
+
+          <div class="hit-simulation-card">
+            <div class="mini-card-header">
+              <span>Pitch Type</span>
+              <strong id="hitPitchTypeOutput">Fastball</strong>
+            </div>
+
+            <div class="hit-choice-grid pitch-choice-grid">
+              <button class="hit-sim-btn active" data-hit-pitch="fastball">Fastball</button>
+              <button class="hit-sim-btn" data-hit-pitch="slider">Slider</button>
+              <button class="hit-sim-btn" data-hit-pitch="curveball">Curveball</button>
+              <button class="hit-sim-btn" data-hit-pitch="changeup">Changeup</button>
+              <button class="hit-sim-btn" data-hit-pitch="sinker">Sinker</button>
+            </div>
+          </div>
+
+          <div class="hit-simulation-card">
+            <div class="mini-card-header">
+              <span>Pitch Location</span>
+              <strong id="hitPitchLocationOutput">Middle</strong>
+            </div>
+
+            <div class="hit-choice-grid location-choice-grid">
+              <button class="hit-sim-btn" data-hit-location="inside">Inside</button>
+              <button class="hit-sim-btn active" data-hit-location="middle">Middle</button>
+              <button class="hit-sim-btn" data-hit-location="outside">Outside</button>
+              <button class="hit-sim-btn" data-hit-location="high">High</button>
+              <button class="hit-sim-btn" data-hit-location="low">Low</button>
+            </div>
+          </div>
+
+          <div class="hit-simulation-card">
+            <div class="mini-card-header">
+              <span>Swing Timing</span>
+              <strong id="hitTimingOutput">On Time</strong>
+            </div>
+
+            <div class="hit-choice-grid three-choice-grid">
+              <button class="hit-sim-btn" data-hit-timing="early">Early</button>
+              <button class="hit-sim-btn active" data-hit-timing="perfect">On Time</button>
+              <button class="hit-sim-btn" data-hit-timing="late">Late</button>
+            </div>
+          </div>
+
+          <div class="hit-simulation-card">
+            <div class="mini-card-header">
+              <span>Contact Quality</span>
+              <strong id="hitQualityOutput">Barrel</strong>
+            </div>
+
+            <div class="hit-choice-grid three-choice-grid">
+              <button class="hit-sim-btn" data-hit-quality="jammed">Jammed</button>
+              <button class="hit-sim-btn" data-hit-quality="solid">Solid</button>
+              <button class="hit-sim-btn active" data-hit-quality="barrel">Barrel</button>
+            </div>
+          </div>
+
+          <div class="engine-control-stack">
+            <div class="pro-control-card">
+              <div class="control-label-row">
+                <label for="hitExitVelocity">Exit Velocity</label>
+                <strong><span id="hitExitVelocityValue">101</span> mph</strong>
+              </div>
+
+              <input type="range" id="hitExitVelocity" min="55" max="116" value="101" />
+
+              <div class="control-scale">
+                <span>Weak Contact</span>
+                <span>Elite Contact</span>
+              </div>
+            </div>
+
+            <div class="pro-control-card">
+              <div class="control-label-row">
+                <label for="hitLaunchAngle">Launch Angle</label>
+                <strong><span id="hitLaunchAngleValue">27</span>°</strong>
+              </div>
+
+              <input type="range" id="hitLaunchAngle" min="0" max="55" value="27" />
+
+              <div class="control-scale">
+                <span>Ground Ball</span>
+                <span>Pop Up</span>
+              </div>
+            </div>
+
+            <div class="pro-control-card hidden-control-card">
+              <div class="control-label-row">
+                <label for="hitSprayAngle">Spray Direction</label>
+                <strong><span id="hitSprayAngleValue">0</span>°</strong>
+              </div>
+
+              <input type="range" id="hitSprayAngle" min="-35" max="35" value="0" />
+
+              <div class="control-scale">
+                <span>Left Field</span>
+                <span>Right Field</span>
+              </div>
+            </div>
+
+            <div class="pro-control-card">
+              <div class="control-label-row">
+                <label for="hitTime">Ball Tracking Phase</label>
+                <strong><span id="hitTimeValue">1.5</span> sec</strong>
+              </div>
+
+              <input type="range" id="hitTime" min="0" max="5" step="0.1" value="1.5" />
+
+              <div class="control-scale">
+                <span>Contact</span>
+                <span>Landing</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="model-code-panel premium-formula-panel">
+            <div class="code-panel-title">
+              <span>Spray Chart Model</span>
+              <strong>Live System</strong>
+            </div>
+
+            <div class="formula-grid">
+              <div class="formula-card">
+                <strong>r(t)</strong>
+                <span>ball position</span>
+              </div>
+
+              <div class="formula-card">
+                <strong>r′(t)</strong>
+                <span>velocity vector</span>
+              </div>
+
+              <div class="formula-card">
+                <strong>θ</strong>
+                <span>launch angle</span>
+              </div>
+
+              <div class="formula-card">
+                <strong>φ</strong>
+                <span>spray angle</span>
+              </div>
+
+              <div class="formula-card wide-formula-card">
+                <strong>matchup + pitch</strong>
+                <span>contact result</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="engine-display hitting-main-panel spray-chart-main">
+          <div class="broadcast-topline">
+            <div>
+              <span class="live-dot"></span>
+              <p>Spray Chart Tracker</p>
+            </div>
+
+            <div class="broadcast-tabs">
+              <span>Contact</span>
+              <span>Flight</span>
+              <span>Carry</span>
+              <span>Zone</span>
+              <span>Landing</span>
+            </div>
+          </div>
+
+          <div class="chart-phase-toolbar">
+            <button class="hit-phase-btn active" data-hit-phase="contact">
+              <span>01</span>
+              Contact
+            </button>
+
+            <button class="hit-phase-btn" data-hit-phase="lift">
+              <span>02</span>
+              Early Flight
+            </button>
+
+            <button class="hit-phase-btn" data-hit-phase="apex">
+              <span>03</span>
+              Peak Carry
+            </button>
+
+            <button class="hit-phase-btn" data-hit-phase="carry">
+              <span>04</span>
+              Field Zone
+            </button>
+
+            <button class="hit-phase-btn" data-hit-phase="landing">
+              <span>05</span>
+              Landing
+            </button>
+          </div>
+
+          <div class="spray-chart-shell batter-sim-shell">
+            <svg viewBox="0 0 980 760" class="spray-chart-svg" aria-label="Top down baseball spray chart">
+              <rect x="0" y="0" width="980" height="760" rx="34" class="svg-panel" />
+
+              <path d="M120 650 C135 305, 845 305, 860 650 Z" class="spray-outfield-fill" />
+
+              <path d="M145 650 C155 355, 825 355, 835 650" class="spray-distance-arc deep-arc" />
+              <path d="M210 650 C225 440, 755 440, 770 650" class="spray-distance-arc mid-arc" />
+              <path d="M315 650 C330 535, 650 535, 665 650" class="spray-distance-arc shallow-arc" />
+
+              <line x1="490" y1="650" x2="145" y2="185" class="spray-foul-line" />
+              <line x1="490" y1="650" x2="835" y2="185" class="spray-foul-line" />
+
+              <line x1="490" y1="650" x2="300" y2="245" class="spray-zone-line" />
+              <line x1="490" y1="650" x2="490" y2="185" class="spray-zone-line center-zone-line" />
+              <line x1="490" y1="650" x2="680" y2="245" class="spray-zone-line" />
+
+              <polygon points="490,650 390,570 490,490 590,570" class="spray-infield-diamond" />
+
+              <circle cx="490" cy="490" r="10" class="base-dot" />
+              <circle cx="390" cy="570" r="10" class="base-dot" />
+              <circle cx="590" cy="570" r="10" class="base-dot" />
+
+              <polygon points="470,665 510,665 528,690 490,710 452,690" class="spray-home-plate" />
+
+              <text x="202" y="215" class="spray-field-label">LEFT FIELD</text>
+              <text x="438" y="160" class="spray-field-label">CENTER</text>
+              <text x="690" y="215" class="spray-field-label">RIGHT FIELD</text>
+
+              <text id="hitPullSideLabel" x="178" y="250" class="spray-side-label">RHB PULL SIDE</text>
+              <text id="hitOppositeSideLabel" x="655" y="250" class="spray-side-label">RHB OPPOSITE</text>
+
+              <text x="200" y="350" class="spray-distance-label">deep carry</text>
+              <text x="230" y="470" class="spray-distance-label">line drive range</text>
+              <text x="325" y="590" class="spray-distance-label">infield contact</text>
+
+              <g class="pitch-impact-mini-zone">
+                <rect x="700" y="586" width="205" height="104" rx="18" class="pitch-impact-box" />
+                <text x="720" y="614" class="pitch-impact-label">Matchup Influence</text>
+                <text id="hitMatchupInfluenceLabel" x="720" y="641" class="pitch-impact-value">
+                  RHP vs RHB
+                </text>
+                <text id="hitPitchInfluenceLabel" x="720" y="668" class="pitch-impact-value secondary-impact-value">
+                  Fastball middle
+                </text>
+              </g>
+
+              <path id="hitArcPath" d="M490 650 C490 520, 490 390, 490 250" class="spray-live-path" />
+
+              <line id="hitVelocityVector" x1="490" y1="650" x2="490" y2="560" class="velocity-vector spray-velocity-vector" />
+
+              <polygon id="hitVelocityArrow" points="490,560 478,582 502,582" class="velocity-arrow spray-velocity-arrow" />
+
+              <line id="hitTangentLine" x1="450" y1="620" x2="530" y2="580" class="tangent-line spray-direction-guide" />
+
+              <line id="hitAccelerationVector" x1="940" y1="690" x2="940" y2="730" class="acceleration-vector spray-hidden-vector" />
+
+              <polygon id="hitAccelerationArrow" points="940,730 928,710 952,710" class="acceleration-arrow spray-hidden-vector" />
+
+              <circle id="hitApexDot" cx="490" cy="250" r="14" class="spray-landing-dot" />
+              <circle cx="490" cy="250" r="42" class="launch-landing-ring spray-landing-ring" />
+
+              <circle id="hitBall" cx="490" cy="650" r="16" class="baseball-dot spray-live-ball" />
+
+              <text id="hitApexLabel" x="390" y="160" class="svg-label hidden-svg-label">apex</text>
+
+              <foreignObject x="70" y="38" width="840" height="82">
+                <div xmlns="http://www.w3.org/1999/xhtml" class="spray-live-card">
+                  <span>Live Spray Chart Read</span>
+                  <strong id="hitLiveLabel">
+                    r′(t) points the ball from home plate toward a field zone.
+                  </strong>
+                </div>
+              </foreignObject>
+            </svg>
+          </div>
+
+          <div class="launch-visual-legend clean-launch-legend spray-chart-legend">
+            <div>
+              <span class="pitch-legend-line gold-line"></span>
+              <p><strong>Gold line</strong> live spray path</p>
+            </div>
+
+            <div>
+              <span class="legend-dot phase-legend-dot"></span>
+              <p><strong>Gold dot</strong> projected landing zone</p>
+            </div>
+
+            <div>
+              <span class="legend-dot vector-legend-dot"></span>
+              <p><strong>Vector</strong> contact direction</p>
+            </div>
+
+            <div>
+              <span class="pitch-legend-box"></span>
+              <p><strong>Matchup</strong> changes contact result</p>
+            </div>
+          </div>
+
+          <div class="hit-readout-strip clean-hit-readout below-chart-readout">
+            <div>
+              <span>Distance</span>
+              <strong id="hitDistanceOutput">0 ft</strong>
+            </div>
+
+            <div>
+              <span>Max Height</span>
+              <strong id="hitMaxHeightOutput">0 ft</strong>
+            </div>
+
+            <div>
+              <span>Hang Time</span>
+              <strong id="hitHangTimeOutput">0 sec</strong>
+            </div>
+
+            <div>
+              <span>Field Result</span>
+              <strong id="hitLaunchWindowOutput">Loading</strong>
+            </div>
+          </div>
+
+          <div class="launch-summary-strip below-chart-summary">
+            <div>
+              <span>Optimization Read</span>
+              <strong id="hitOptimizationOutput">Loading</strong>
+              <p id="hitContactExplanation">
+                The system will evaluate whether the matchup, pitch, timing, speed,
+                launch angle, and direction are working together.
+              </p>
+            </div>
+
+            <div>
+              <span>Spray Chart Meaning</span>
+              <strong id="hitLaunchWindowOutputLabel">Field Zone Tracker</strong>
+              <p id="hitLaunchWindowExplanation">
+                The spray chart explanation appears here.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <aside class="engine-results-panel hitting-results-panel">
+          <div class="console-topbar">
+            <div>
+              <span class="live-dot"></span>
+              <p>Contact Report</p>
+            </div>
+            <span>Output Feed</span>
+          </div>
+
+          <div class="hit-grade-card">
+            <span>Barrel Intelligence</span>
+            <h3 id="hitOptimizationBigOutput">Launch Efficiency</h3>
+            <p>
+              The system compares pitcher hand, batter hand, pitch type, pitch location,
+              timing, exit velocity, launch angle, and spray direction.
+            </p>
+          </div>
+
+          <div class="analysis-stack">
+            <article class="analysis-card">
+              <span>Horizontal Velocity</span>
+              <strong id="hitVXOutput">0 ft/s</strong>
+              <p>
+                This tells how quickly the ball moves forward across the field.
+              </p>
+            </article>
+
+            <article class="analysis-card">
+              <span>Vertical Velocity</span>
+              <strong id="hitVYOutput">0 ft/s</strong>
+              <p>
+                Positive means rising. Negative means falling.
+              </p>
+            </article>
+
+            <article class="analysis-card">
+              <span>Apex Time</span>
+              <strong id="hitApexTimeOutput">0 sec</strong>
+              <p>
+                The apex happens when vertical velocity equals zero.
+              </p>
+            </article>
+
+            <article class="analysis-card contact-analysis-card">
+              <span>Calculus Read</span>
+              <strong>Matchup changes the contact vector</strong>
+              <p>
+                Pitcher hand and pitch type affect the ball before contact.
+                Batter hand changes pull-side meaning. Together, those inputs help
+                determine the direction and quality of r′(t) after contact.
+              </p>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="content-section intelligence-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Hitting Calculus Translation</p>
+
+        <h2>Pitcher Hand and Batter Hand Change the Contact Vector</h2>
+
+        <p>
+          A same-side matchup and an opposite-side matchup create different pitch movement,
+          timing pressure, and spray-chart results.
+        </p>
+      </div>
+
+      <div class="intelligence-grid">
+        <article class="intelligence-card">
+          <span>Position</span>
+          <h3>r(t)</h3>
+          <p>The batted ball has a position at every moment after contact.</p>
+        </article>
+
+        <article class="intelligence-card">
+          <span>Velocity</span>
+          <h3>r′(t)</h3>
+          <p>
+            Velocity describes how position changes and points the ball toward a field zone.
+          </p>
+        </article>
+
+        <article class="intelligence-card">
+          <span>Matchup</span>
+          <h3>RHP / LHP</h3>
+          <p>
+            Pitcher hand changes how breaking balls, sinkers, and changeups approach the hitter before contact.
+          </p>
+        </article>
+
+        <article class="intelligence-card">
+          <span>Batter Hand</span>
+          <h3>RHB / LHB</h3>
+          <p>
+            Batter hand determines pull-side and opposite-field direction.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="dark-lab-section hitting-proof-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Spray Chart Analysis</p>
+
+        <h2>The Best Swing Balances Matchup, Pitch Recognition, and Contact Direction</h2>
+
+        <p>
+          A hard-hit ball becomes dangerous when the hitter recognizes the pitch,
+          times the swing, and sends the velocity vector into a productive field zone.
+        </p>
+      </div>
+
+      <div class="optimization-grid">
+        <div class="optimization-proof">
+          <span>Motion Model</span>
+
+          <p>x(t) = v₀cos(θ)t</p>
+          <p>y(t) = y₀ + v₀sin(θ)t − 16t²</p>
+          <p>spray direction = φ</p>
+          <p>pitcher hand affects the inputs before contact</p>
+          <p>batter hand changes pull-side meaning</p>
+        </div>
+
+        <div class="optimization-explanation">
+          <h3>Baseball translation</h3>
+
+          <p>
+            Exit velocity gives the ball energy, launch angle controls height and carry,
+            and spray direction controls which part of the field the ball travels toward.
+          </p>
+
+          <p>
+            Pitcher hand, pitch type, pitch location, and batter hand influence the contact
+            input. After contact, the ball follows a projectile path that can be studied
+            with position, velocity, and acceleration.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <p class="eyebrow">Final Dashboard</p>
+
+      <h2>Turn the Labs Into Baseball Intelligence</h2>
+
+      <p>
+        The final page connects the calculus, pitching, and hitting labs into one baseball analytics system.
+      </p>
+
+      <a href="analytics.html" class="btn primary-btn">Open Analytics Dashboard</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>The Math Behind the Game | Math 1A Final Project</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
