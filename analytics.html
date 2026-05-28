@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Analytics Dashboard | The Math Behind the Game</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">◆</span>
+        Math Behind the Game
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="calculus.html">Calculus Engine</a>
+        <a href="pitching.html">Pitching Lab</a>
+        <a href="hitting.html">Hitting Lab</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="model.html">The Model</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="page-hero analytics-hero bubble-analytics-hero">
+      <div class="page-hero-content">
+        <p class="tagline">Final Dashboard | Baseball Intelligence System</p>
+
+        <h1>Analytics Dashboard</h1>
+
+        <p>
+          This final dashboard connects the calculus engine, pitching lab, and hitting lab
+          into one baseball intelligence system. Click a bubble to expand the explanation.
+          Click it again to minimize it.
+        </p>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE BUBBLE HUB -->
+    <section class="engine-section bubble-dashboard-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Interactive Command Hub</p>
+
+        <h2>Click a Baseball Intelligence Bubble</h2>
+
+        <p>
+          Instead of showing every detail at once, this dashboard lets you explore one part
+          of the system at a time.
+        </p>
+      </div>
+
+      <div class="bubble-dashboard-shell">
+        <div class="broadcast-topline bubble-topline">
+          <div>
+            <span class="live-dot"></span>
+            <p>Final Baseball Intelligence Map</p>
+          </div>
+
+          <div class="broadcast-tabs">
+            <span class="active">Explore</span>
+            <span>Expand</span>
+            <span>Explain</span>
+          </div>
+        </div>
+
+        <div class="bubble-map">
+          <!-- CENTER HUB -->
+          <button class="analytics-bubble center-bubble active" data-analytics-topic="overview">
+            <span>00</span>
+            <strong>System</strong>
+            <small>full model</small>
+          </button>
+
+          <!-- ORBIT BUBBLES -->
+          <button class="analytics-bubble bubble-calculus" data-analytics-topic="calculus">
+            <span>01</span>
+            <strong>Calculus</strong>
+            <small>motion model</small>
+          </button>
+
+          <button class="analytics-bubble bubble-pitching" data-analytics-topic="pitching">
+            <span>02</span>
+            <strong>Pitching</strong>
+            <small>reaction time</small>
+          </button>
+
+          <button class="analytics-bubble bubble-hitting" data-analytics-topic="hitting">
+            <span>03</span>
+            <strong>Hitting</strong>
+            <small>contact vector</small>
+          </button>
+
+          <button class="analytics-bubble bubble-spray" data-analytics-topic="spray">
+            <span>04</span>
+            <strong>Spray</strong>
+            <small>field zone</small>
+          </button>
+
+          <button class="analytics-bubble bubble-scouting" data-analytics-topic="scouting">
+            <span>05</span>
+            <strong>Report</strong>
+            <small>team decision</small>
+          </button>
+
+          <!-- VISUAL LINES -->
+          <svg viewBox="0 0 1000 560" class="bubble-line-svg" aria-hidden="true">
+            <circle cx="500" cy="280" r="205" class="bubble-orbit-line" />
+            <circle cx="500" cy="280" r="125" class="bubble-inner-ring" />
+
+            <line x1="500" y1="280" x2="500" y2="76" class="bubble-connector" />
+            <line x1="500" y1="280" x2="250" y2="215" class="bubble-connector" />
+            <line x1="500" y1="280" x2="750" y2="215" class="bubble-connector" />
+            <line x1="500" y1="280" x2="320" y2="435" class="bubble-connector" />
+            <line x1="500" y1="280" x2="680" y2="435" class="bubble-connector" />
+
+            <path
+              d="M330 360 C435 235, 590 230, 715 360"
+              class="bubble-gold-path"
+            />
+
+            <circle cx="330" cy="360" r="10" class="bubble-ball" />
+            <circle cx="715" cy="360" r="14" class="bubble-ball landing-ball" />
+
+            <text x="500" y="515" class="bubble-map-label">
+              pitch movement → contact vector → spray result → scouting decision
+            </text>
+          </svg>
+        </div>
+
+        <!-- EXPANDABLE PANEL -->
+        <section class="analytics-expand-panel open" id="analyticsExpandPanel">
+          <div class="expand-panel-header">
+            <div>
+              <span id="analyticsPanelKicker">Complete System</span>
+              <h3 id="analyticsPanelTitle">Baseball Intelligence System</h3>
+            </div>
+
+            <p id="analyticsPanelTag">Overview</p>
+          </div>
+
+          <div class="expand-panel-grid">
+            <article class="expand-main-card">
+              <span>What this means</span>
+              <p id="analyticsPanelDescription">
+                A baseball play can be studied as a chain of motion. The pitch moves
+                toward the plate, the hitter reacts, the ball leaves the bat, and the
+                final result lands in a field zone.
+              </p>
+            </article>
+
+            <article class="expand-equation-card">
+              <span>Calculus Connection</span>
+              <strong id="analyticsPanelEquation">
+                position → velocity → decision
+              </strong>
+              <p id="analyticsPanelMath">
+                Differential calculus matters because it studies how position changes over time.
+              </p>
+            </article>
+
+            <article class="expand-decision-card">
+              <span>Baseball Decision</span>
+              <strong id="analyticsPanelDecision">
+                Build a complete scouting picture.
+              </strong>
+              <p id="analyticsPanelUse">
+                Teams can use this kind of model to understand pitch design, hitter strengths,
+                launch efficiency, and defensive positioning.
+              </p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- PROJECT FLOW -->
+    <section class="content-section intelligence-section bubble-flow-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Project Flow</p>
+
+        <h2>How Each Lab Connects</h2>
+
+        <p>
+          The project moves from the basic calculus model to real baseball applications.
+        </p>
+      </div>
+
+      <div class="system-flow-grid compact-system-flow">
+        <article class="flow-card">
+          <span>01</span>
+          <h3>Calculus Engine</h3>
+          <p>
+            Shows position, velocity, acceleration, apex, and landing through projectile motion.
+          </p>
+          <a href="calculus.html">Open Calculus Lab</a>
+        </article>
+
+        <article class="flow-card">
+          <span>02</span>
+          <h3>Pitching Lab</h3>
+          <p>
+            Shows how velocity, break, drop, and pitch location change reaction time.
+          </p>
+          <a href="pitching.html">Open Pitching Lab</a>
+        </article>
+
+        <article class="flow-card">
+          <span>03</span>
+          <h3>Hitting Lab</h3>
+          <p>
+            Shows how matchup, pitch type, timing, and contact quality create a spray result.
+          </p>
+          <a href="hitting.html">Open Hitting Lab</a>
+        </article>
+
+        <article class="flow-card">
+          <span>04</span>
+          <h3>Analytics</h3>
+          <p>
+            Combines the labs into one scouting style baseball intelligence system.
+          </p>
+          <a href="analytics.html">Current Page</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- FINAL MATHEMATICAL EXPLANATION -->
+    <section class="dark-lab-section analytics-proof-section bubble-proof-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Final Mathematical Explanation</p>
+
+        <h2>Why This Is Differential Calculus</h2>
+
+        <p>
+          This project is about change. A pitch changes position over time, a batted ball
+          changes height over time, and derivatives describe those changes.
+        </p>
+      </div>
+
+      <div class="optimization-grid">
+        <div class="optimization-proof">
+          <span>Core Equations</span>
+
+          <p>x(t) = v₀cos(θ)t</p>
+          <p>y(t) = y₀ + v₀sin(θ)t − 16t²</p>
+          <p>x′(t) = v₀cos(θ)</p>
+          <p>y′(t) = v₀sin(θ) − 32t</p>
+          <p>maximum height occurs when y′(t) = 0</p>
+        </div>
+
+        <div class="optimization-explanation">
+          <h3>Baseball translation</h3>
+
+          <p>
+            The position functions tell where the ball is. The derivative tells how fast
+            the ball is moving and in what direction. This is why velocity vectors matter
+            in baseball analytics.
+          </p>
+
+          <p>
+            Pitching uses this idea to study how quickly a pitch reaches the plate.
+            Hitting uses it to study how the ball leaves the bat. Spray charts show
+            where that motion finishes on the field.
+          </p>
+        </div>
+      </div>
+    </section>
+
+   <!-- SOURCES SECTION -->
+<section class="content-section sources-section bubble-sources-section">
+  <div class="section-header center-header">
+    <p class="eyebrow">Works Cited / Research Base</p>
+
+    <h2>Sources Used to Support the Project</h2>
+
+    <p>
+      These sources support the baseball analytics, derivative, velocity,
+      acceleration, and projectile motion concepts used throughout the project.
+    </p>
+  </div>
+
+  <div class="source-grid">
+    <article class="source-card">
+      <span>Baseball Analytics</span>
+      <h3>MLB Statcast Glossary</h3>
+      <p>
+        Used to support baseball analytics terms such as exit velocity, launch angle,
+        barrels, pitch movement, and batted-ball tracking.
+      </p>
+      <a href="https://www.mlb.com/glossary/statcast" target="_blank" rel="noopener noreferrer">
+        View Source
+      </a>
+    </article>
+
+    <article class="source-card">
+      <span>Calculus Concepts</span>
+      <h3>OpenStax Calculus Volume 1</h3>
+      <p>
+        Used to support the derivative concepts in the project, especially velocity
+        as a rate of change, instantaneous velocity, and acceleration as the rate of
+        change of velocity.
+      </p>
+      <a href="https://openstax.org/books/calculus-volume-1/pages/3-1-defining-the-derivative" target="_blank" rel="noopener noreferrer">
+        View Source
+      </a>
+    </article>
+
+    <article class="source-card">
+      <span>Projectile Motion</span>
+      <h3>OpenStax Physics Projectile Motion</h3>
+      <p>
+        Used to support the projectile motion model, including horizontal and vertical
+        motion components and the effect of gravity on vertical acceleration.
+      </p>
+      <a href="https://openstax.org/books/physics/pages/5-3-projectile-motion" target="_blank" rel="noopener noreferrer">
+        View Source
+      </a>
+    </article>
+  </div>
+
+  <div class="works-cited-box">
+    <h3>Works Cited</h3>
+
+    <p>
+      Major League Baseball. “Statcast Glossary.” <em>MLB.com</em>.
+      <a href="https://www.mlb.com/glossary/statcast" target="_blank" rel="noopener noreferrer">
+        https://www.mlb.com/glossary/statcast
+      </a>
+    </p>
+
+    <p>
+      Major League Baseball. “Statcast Exit Velocity &amp; Launch Angle Field Breakdown.”
+      <em>Baseball Savant</em>.
+      <a href="https://baseballsavant.mlb.com/statcast_field" target="_blank" rel="noopener noreferrer">
+        https://baseballsavant.mlb.com/statcast_field
+      </a>
+    </p>
+
+    <p>
+      Strang, Gilbert, and Edwin “Jed” Herman. <em>Calculus Volume 1</em>.
+      OpenStax, Rice University, 2016.
+      <a href="https://openstax.org/books/calculus-volume-1/pages/3-1-defining-the-derivative" target="_blank" rel="noopener noreferrer">
+        https://openstax.org/books/calculus-volume-1/pages/3-1-defining-the-derivative
+      </a>
+    </p>
+
+    <p>
+      OpenStax. “Derivatives as Rates of Change.” <em>Calculus Volume 1</em>.
+      OpenStax, Rice University, 2016.
+      <a href="https://openstax.org/books/calculus-volume-1/pages/3-4-derivatives-as-rates-of-change" target="_blank" rel="noopener noreferrer">
+        https://openstax.org/books/calculus-volume-1/pages/3-4-derivatives-as-rates-of-change
+      </a>
+    </p>
+
+    <p>
+      OpenStax. “Projectile Motion.” <em>Physics</em>.
+      OpenStax, Rice University.
+      <a href="https://openstax.org/books/physics/pages/5-3-projectile-motion" target="_blank" rel="noopener noreferrer">
+        https://openstax.org/books/physics/pages/5-3-projectile-motion
+      </a>
+    </p>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Math Behind the Game | Math 1A Final Project | Aundria Vanderveur</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

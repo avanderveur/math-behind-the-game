@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>The Model | The Math Behind the Game</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+  <span class="logo-mark"></span>
+  Math Behind the Game
+</a>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="calculus.html">Calculus</a>
+        <a href="pitching.html">Pitching</a>
+        <a href="hitting.html">Hitting</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="model.html">The Model</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero model-hero">
+      <div class="page-hero-content">
+        <p class="eyebrow">Methodology</p>
+
+        <h1>The Model Behind the System</h1>
+
+        <p>
+          This page explains how the baseball intelligence system connects
+          calculus, projectile motion, pitch timing, spray direction, and
+          website interactivity into one model.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section model-overview-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">System Logic</p>
+        <h2>From Motion to Baseball Decision</h2>
+        <p>
+          The project models a baseball play as a sequence of changing positions.
+          Calculus helps describe how quickly those positions change.
+        </p>
+      </div>
+
+      <div class="model-flow-strip">
+        <div class="model-flow-item">
+          <span>01</span>
+          <strong>Pitch</strong>
+          <p>The ball moves toward home plate.</p>
+        </div>
+
+        <div class="model-flow-arrow">→</div>
+
+        <div class="model-flow-item">
+          <span>02</span>
+          <strong>Reaction</strong>
+          <p>The hitter has a short decision window.</p>
+        </div>
+
+        <div class="model-flow-arrow">→</div>
+
+        <div class="model-flow-item">
+          <span>03</span>
+          <strong>Contact</strong>
+          <p>The ball leaves the bat with speed and direction.</p>
+        </div>
+
+        <div class="model-flow-arrow">→</div>
+
+        <div class="model-flow-item">
+          <span>04</span>
+          <strong>Flight</strong>
+          <p>The ball rises, reaches an apex, and falls.</p>
+        </div>
+
+        <div class="model-flow-arrow">→</div>
+
+        <div class="model-flow-item">
+          <span>05</span>
+          <strong>Result</strong>
+          <p>The ball lands in a field zone.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section model-equation-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Formula Translation</p>
+        <h2>Reading the Calculus in Plain English</h2>
+        <p>
+          Each formula below is shown with how to read it and what it means
+          in the baseball model.
+        </p>
+      </div>
+
+      <div class="model-equation-grid">
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Position</span>
+            <strong>Motion Model</strong>
+          </div>
+
+          <h3>r(t) = &lt;x(t), y(t)&gt;</h3>
+
+          <p class="read-line">
+            Read as: “r of t equals the ordered pair x of t and y of t.”
+          </p>
+
+          <p>
+            This means the ball’s position has two parts: horizontal position
+            and vertical height.
+          </p>
+        </article>
+
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Horizontal Motion</span>
+            <strong>Distance</strong>
+          </div>
+
+          <h3>x(t) = v₀cos(θ)t</h3>
+
+          <p class="read-line">
+            Read as: “x of t equals v naught cosine theta times t.”
+          </p>
+
+          <p>
+            This estimates how far the ball travels horizontally based on
+            starting speed, launch angle, and time.
+          </p>
+        </article>
+
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Vertical Motion</span>
+            <strong>Height</strong>
+          </div>
+
+          <h3>y(t) = y₀ + v₀sin(θ)t − 16t²</h3>
+
+          <p class="read-line">
+            Read as: “y of t equals y naught plus v naught sine theta times t
+            minus sixteen t squared.”
+          </p>
+
+          <p>
+            This estimates the ball’s height over time. The final term models
+            gravity pulling the ball downward.
+          </p>
+        </article>
+
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Velocity</span>
+            <strong>Derivative</strong>
+          </div>
+
+          <h3>r′(t) = velocity</h3>
+
+          <p class="read-line">
+            Read as: “r prime of t equals velocity.”
+          </p>
+
+          <p>
+            Velocity is the derivative of position. It describes how fast the
+            ball’s position is changing at a specific moment.
+          </p>
+        </article>
+
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Acceleration</span>
+            <strong>Gravity</strong>
+          </div>
+
+          <h3>r″(t) = acceleration</h3>
+
+          <p class="read-line">
+            Read as: “r double prime of t equals acceleration.”
+          </p>
+
+          <p>
+            Acceleration is the derivative of velocity. In this simplified
+            model, the main acceleration is gravity pulling downward.
+          </p>
+        </article>
+
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Maximum Height</span>
+            <strong>Critical Point</strong>
+          </div>
+
+          <h3>y′(t) = 0</h3>
+
+          <p class="read-line">
+            Read as: “y prime of t equals zero.”
+          </p>
+
+          <p>
+            This happens at the apex of the ball’s flight. The ball is no longer
+            rising, but it has not started falling yet.
+          </p>
+        </article>
+
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Pitch Timing</span>
+            <strong>Reaction Window</strong>
+          </div>
+
+          <h3>t ≈ d ÷ v</h3>
+
+          <p class="read-line">
+            Read as: “t is approximately distance divided by velocity.”
+          </p>
+
+          <p>
+            This estimates how long the hitter has to react to a pitch.
+            As pitch velocity increases, reaction time decreases.
+          </p>
+        </article>
+
+        <article class="model-equation-card">
+          <div class="equation-topline">
+            <span>Spray Chart</span>
+            <strong>Direction</strong>
+          </div>
+
+          <h3>φ = spray direction</h3>
+
+          <p class="read-line">
+            Read as: “phi equals spray direction.”
+          </p>
+
+          <p>
+            Spray direction describes whether the ball travels toward left field,
+            center field, or right field.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section variable-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Variable Glossary</p>
+        <h2>What Each Variable Means</h2>
+        <p>
+          The same variables appear across the Calculus, Pitching, Hitting, and
+          Analytics pages.
+        </p>
+      </div>
+
+      <div class="variable-table-shell">
+        <table class="variable-table">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>How to Say It</th>
+              <th>Meaning</th>
+              <th>Baseball Connection</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>t</td>
+              <td>“time”</td>
+              <td>Time in seconds</td>
+              <td>How long the ball has been moving</td>
+            </tr>
+
+            <tr>
+              <td>v₀</td>
+              <td>“v naught”</td>
+              <td>Initial velocity</td>
+              <td>Exit velocity after contact</td>
+            </tr>
+
+            <tr>
+              <td>θ</td>
+              <td>“theta”</td>
+              <td>Launch angle</td>
+              <td>Angle the ball leaves the bat</td>
+            </tr>
+
+            <tr>
+              <td>φ</td>
+              <td>“phi”</td>
+              <td>Spray angle</td>
+              <td>Direction across the field</td>
+            </tr>
+
+            <tr>
+              <td>x(t)</td>
+              <td>“x of t”</td>
+              <td>Horizontal position</td>
+              <td>Forward distance traveled</td>
+            </tr>
+
+            <tr>
+              <td>y(t)</td>
+              <td>“y of t”</td>
+              <td>Vertical position</td>
+              <td>Height of the ball</td>
+            </tr>
+
+            <tr>
+              <td>y₀</td>
+              <td>“y naught”</td>
+              <td>Starting height</td>
+              <td>Height of the ball at contact</td>
+            </tr>
+
+            <tr>
+              <td>r(t)</td>
+              <td>“r of t”</td>
+              <td>Total position</td>
+              <td>Where the batted ball is</td>
+            </tr>
+
+            <tr>
+              <td>r′(t)</td>
+              <td>“r prime of t”</td>
+              <td>Velocity</td>
+              <td>Speed and direction after contact</td>
+            </tr>
+
+            <tr>
+              <td>r″(t)</td>
+              <td>“r double prime of t”</td>
+              <td>Acceleration</td>
+              <td>Gravity changing vertical velocity</td>
+            </tr>
+
+            <tr>
+              <td>s(t)</td>
+              <td>“s of t”</td>
+              <td>Pitch position</td>
+              <td>Where the pitch is before contact</td>
+            </tr>
+
+            <tr>
+              <td>s′(t)</td>
+              <td>“s prime of t”</td>
+              <td>Pitch velocity</td>
+              <td>How fast the pitch approaches the plate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="content-section implementation-section">
+      <div class="section-header center-header">
+        <p class="eyebrow">Implementation</p>
+        <h2>How the Website Model Was Built</h2>
+        <p>
+          The project uses front-end web technologies to turn the formulas into
+          an interactive visual system.
+        </p>
+      </div>
+
+      <div class="implementation-grid">
+        <article class="implementation-card">
+          <span>HTML</span>
+          <h3>Page Structure</h3>
+          <p>
+            HTML organizes the pages, navigation, sections, buttons, sliders,
+            cards, tables, and written explanations.
+          </p>
+        </article>
+
+        <article class="implementation-card">
+          <span>CSS</span>
+          <h3>Visual Design</h3>
+          <p>
+            CSS creates the broadcast-style layout, dark baseball theme, gold
+            accents, responsive cards, grids, and polished page design.
+          </p>
+        </article>
+
+        <article class="implementation-card">
+          <span>JavaScript</span>
+          <h3>Interactivity</h3>
+          <p>
+            JavaScript reads user inputs, calculates motion values, updates
+            results, changes active buttons, and controls the simulations.
+          </p>
+        </article>
+
+        <article class="implementation-card">
+          <span>SVG</span>
+          <h3>Baseball Visuals</h3>
+          <p>
+            SVG graphics draw the fields, pitch paths, spray charts, velocity
+            vectors, landing zones, and motion curves.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section model-limits-section">
+      <div class="model-limits-card">
+        <div>
+          <p class="eyebrow">Model Scope</p>
+          <h2>What the Model Simplifies</h2>
+        </div>
+
+        <p>
+          This project uses a simplified educational model. It focuses on the
+          calculus relationships between position, velocity, acceleration, launch
+          angle, exit velocity, reaction time, and field direction.
+        </p>
+
+        <p>
+          A professional baseball model would also include air resistance, spin
+          rate, wind, stadium dimensions, field conditions, player-specific data,
+          and real tracking measurements. Those factors are outside the scope of
+          this Math 1A project, but the simplified model is still useful because
+          it clearly shows how calculus describes motion.
+        </p>
+      </div>
+    </section>
+
+    <section class="final-cta model-cta">
+      <p class="eyebrow">Final Connection</p>
+
+      <h2>Calculus Turns Motion Into Meaning</h2>
+
+      <p>
+        In this project, derivatives explain velocity. Velocity explains motion.
+        Motion explains baseball outcomes. That is how calculus connects to
+        pitching, hitting, spray charts, and analytics.
+      </p>
+
+      <a href="analytics.html" class="primary-btn">Back to Analytics</a>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>Math Behind the Game | Math 1A Final Project | Aundria Vanderveur</p>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>
